@@ -96,5 +96,60 @@ let formData = [
 
 
 // -------- Your Code Goes Below this Line --------
+// Create parent div id "fields"
+let formFields = document.querySelector("#fields");
 
+// Create for loop to loop through formData and fill in input details
+function formInputs () {
+  for (let i = 0; i < formData.length; i++) {
 
+    // Create input element
+    let input = document.createElement("input");
+    let select = document.createElement("select");
+    let textArea = document.createElement("textarea");
+
+    // Set attributes of the inputs: type, label, id, icon, options
+    if (formData[i].type === "select") {
+      select.setAttribute("type", formData[i].type);
+      select.setAttribute("placeholder", formData[i].label);
+      select.setAttribute("id", formData[i].id);
+      select.setAttribute("icon", formData[i].icon);
+      // select.setAttribute("options", formData[i].options);
+      // Need to create drop down list
+
+        for (let j = 0; j < formData[i].options.length; j++) {
+          let languageOption = document.createElement("option");
+
+          languageOption.setAttribute("value", formData[i].options[j].value);
+          languageOption.textContent = formData[i].options[j].label;
+          select.appendChild(languageOption);
+        }
+
+      // Add select element to DOM
+      formFields.appendChild(select);
+    }
+
+    else if (formData[i].type === "textarea"){
+      textArea.setAttribute("type", formData[i].type);
+      textArea.setAttribute("placeholder", formData[i].label);
+      textArea.setAttribute("id", formData[i].id);
+      textArea.setAttribute("icon", formData[i].icon);
+      // textArea.setAttribute("options", formData[i].options);
+      // Add textArea element to DOM
+      formFields.appendChild(textArea);
+    }
+
+    else {
+      input.setAttribute("type", formData[i].type);
+      input.setAttribute("placeholder", formData[i].label);
+      input.setAttribute("id", formData[i].id);
+      input.setAttribute("icon", formData[i].icon);
+      // input.setAttribute("options", formData[i].options);
+      // Add input element to DOM
+      formFields.appendChild(input);
+    }
+  }
+}
+
+// Call formInputs function
+formInputs();
